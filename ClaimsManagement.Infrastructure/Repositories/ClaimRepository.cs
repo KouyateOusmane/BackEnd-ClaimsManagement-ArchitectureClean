@@ -2,10 +2,8 @@
 using ClaimsManagement.Domain.Interfaces;
 using ClaimsManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ClaimsManagement.Infrastructure.Repositories
@@ -19,6 +17,9 @@ namespace ClaimsManagement.Infrastructure.Repositories
             _context = context;
         }
 
+        /// <summary>
+        /// Adds a new claim to the database.
+        /// </summary>
         public async Task<Claim> AddAsync(Claim claim)
         {
             _context.Claims.Add(claim);
@@ -26,23 +27,41 @@ namespace ClaimsManagement.Infrastructure.Repositories
             return claim;
         }
 
-        public async Task<Claim?> GetByIdAsync(Guid id)
+        /// <summary>
+        /// Gets a claim by its ID.
+        /// </summary>
+        public async Task<Claim?> GetByIdAsync(int id)
         {
             return await _context.Claims.FindAsync(id);
         }
 
-        public async Task<List<Claim>> GetByUserIdAsync(Guid userId)
+        /// <summary>
+        /// Gets all claims submitted by a specific user (insured).
+        /// </summary>
+        public async Task<List<Claim>> GetByUserIdAsync(int userId)
         {
-            // Exemple : Adaptez selon votre modèle
             return await _context.Claims
-                .Where(c => c.Id == userId) // Changez selon votre logique métier
+                .Where(c => c.InsuredId == userId) // Adjusted to use InsuredId
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Updates an existing claim.
+        /// </summary>
         public async Task UpdateAsync(Claim claim)
         {
             _context.Claims.Update(claim);
             await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Get all claims for insured.
+        /// </summary>
+        public async Task<List<Claim>> GetByInsuredIdAsync(int insuredId)
+        {
+            return await _context.Claims
+                .Where(c => c.InsuredId == insuredId) // Filtre par l'ID de l'assuré
+                .ToListAsync();
         }
     }
 }

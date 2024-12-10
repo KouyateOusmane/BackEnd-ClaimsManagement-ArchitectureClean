@@ -1,5 +1,8 @@
 ﻿using ClaimsManagement.Domain.Entities;
 using ClaimsManagement.Domain.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ClaimsManagement.Application.UseCases
 {
@@ -12,25 +15,20 @@ namespace ClaimsManagement.Application.UseCases
             _claimRepository = claimRepository;
         }
 
-        public async Task<Claim> ExecuteAsync(Claim claim)
+        public async Task<Claim> ExecuteAsync(int insuredId, string claimType, string incidentDescription, DateTime incidentDate, float estimatedAmount, List<string> documentUrls)
         {
-            try
+            var claim = new Claim
             {
-                Console.WriteLine($"Received IncidentDate: {claim.IncidentDate}");
-                Console.WriteLine($"Current DateTime.UtcNow: {DateTime.UtcNow}");
+                InsuredId = insuredId,
+                ClaimType = claimType,
+                IncidentDescription = incidentDescription,
+                IncidentDate = incidentDate,
+                EstimatedAmount = estimatedAmount,
+                DocumentUrls = documentUrls,
+                Status = ClaimStatus.Submitted
+            };
 
-                if (claim.IncidentDate > DateTime.UtcNow)
-                    throw new ArgumentException("Incident date cannot be in the future.");
-
-                // Continuez avec le traitement
-                claim.Status = ClaimStatus.Submitted;
-                return await _claimRepository.AddAsync(claim);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in SubmitClaimUseCase: {ex.Message}");
-                throw;
-            }
+            return await _claimRepository.AddAsync(claim);
         }
     }
 }

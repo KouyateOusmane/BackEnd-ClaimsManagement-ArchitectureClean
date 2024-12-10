@@ -1,5 +1,8 @@
 ﻿using ClaimsManagement.Domain.Entities;
 using ClaimsManagement.Domain.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ClaimsManagement.Application.UseCases
 {
@@ -12,10 +15,17 @@ namespace ClaimsManagement.Application.UseCases
             _claimRepository = claimRepository;
         }
 
-        public async Task<Claim?> ExecuteAsync(Guid id)
+        /// <summary>
+        /// Executes the use case to retrieve a claim by its ID.
+        /// </summary>
+        public async Task<Claim> ExecuteAsync(int id)
         {
-            if (id == Guid.Empty) throw new ArgumentException("Claim ID is required.");
-            return await _claimRepository.GetByIdAsync(id) ?? throw new KeyNotFoundException("Claim not found.");
+            if (id <= 0) throw new ArgumentException("Claim ID must be greater than zero.");
+
+            var claim = await _claimRepository.GetByIdAsync(id);
+            if (claim == null) throw new KeyNotFoundException("Claim not found.");
+
+            return claim;
         }
     }
 }

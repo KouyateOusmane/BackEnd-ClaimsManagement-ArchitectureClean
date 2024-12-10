@@ -18,9 +18,14 @@ builder.Services.AddSwaggerGen();
 var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=ClaimsDB;Trusted_Connection=True;";
 
 // Ajouter les cas d'utilisation (UseCases)
-builder.Services.AddScoped<SubmitClaimUseCase>();
+builder.Services.AddScoped<CreateInsuredUseCase>();
 builder.Services.AddScoped<GetClaimByIdUseCase>();
+builder.Services.AddScoped<GetClaimsByInsuredIdUseCase>();
+builder.Services.AddScoped<LoginUseCase>();
+builder.Services.AddScoped<SubmitClaimUseCase>();
+
 builder.Services.AddScoped<IClaimRepository, ClaimRepository>();
+builder.Services.AddScoped<IInsuredRepository, InsuredRepository>();
 
 // Ajouter le contexte de base de données
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

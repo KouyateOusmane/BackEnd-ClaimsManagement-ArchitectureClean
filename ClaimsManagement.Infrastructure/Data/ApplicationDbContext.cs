@@ -12,12 +12,17 @@ namespace ClaimsManagement.Infrastructure.Data
 
         public DbSet<Claim> Claims { get; set; }
 
+        public DbSet<Insured> Insureds { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configuration exemple
-            modelBuilder.Entity<Claim>().Property(c => c.ClaimType).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<Claim>()
+                .HasOne(c => c.Insured)
+                .WithMany(i => i.Claims)
+                .HasForeignKey(c => c.InsuredId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
