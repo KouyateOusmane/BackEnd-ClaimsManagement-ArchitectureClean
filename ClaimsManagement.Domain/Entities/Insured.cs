@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ClaimsManagement.Domain.Entities
+﻿namespace ClaimsManagement.Domain.Entities
 {
     public class Insured
     {

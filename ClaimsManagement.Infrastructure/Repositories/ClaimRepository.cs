@@ -2,9 +2,6 @@
 using ClaimsManagement.Domain.Interfaces;
 using ClaimsManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClaimsManagement.Infrastructure.Repositories
 {

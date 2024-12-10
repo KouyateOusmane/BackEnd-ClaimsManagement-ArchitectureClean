@@ -1,5 +1,4 @@
 ﻿using ClaimsManagement.Domain.Entities;
-using System.Threading.Tasks;
 
 namespace ClaimsManagement.Domain.Interfaces
 {

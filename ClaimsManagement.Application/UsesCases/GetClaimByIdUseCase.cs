@@ -1,8 +1,5 @@
 ﻿using ClaimsManagement.Domain.Entities;
 using ClaimsManagement.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ClaimsManagement.Application.UseCases
 {
