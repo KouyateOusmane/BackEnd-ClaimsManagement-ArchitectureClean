@@ -1,4 +1,5 @@
 ﻿using ClaimsManagement.Application.UseCases;
+using ClaimsManagement.Application.UsesCases;
 using ClaimsManagement.Domain.Interfaces;
 using ClaimsManagement.Infrastructure.Data;
 using ClaimsManagement.Infrastructure.Repositories;
@@ -24,6 +25,8 @@ builder.Services.AddScoped<GetClaimByIdUseCase>();
 builder.Services.AddScoped<GetClaimsByInsuredIdUseCase>();
 builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<SubmitClaimUseCase>();
+builder.Services.AddScoped<UpdateClaimUseCase>();
+builder.Services.AddScoped<UpdateClaimStatusUseCase>();
 
 builder.Services.AddScoped<IClaimRepository, ClaimRepository>();
 builder.Services.AddScoped<IInsuredRepository, InsuredRepository>();

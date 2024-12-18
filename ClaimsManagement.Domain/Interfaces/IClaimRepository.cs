@@ -28,5 +28,10 @@ namespace ClaimsManagement.Domain.Interfaces
         /// Get all claims for insured.
         /// </summary>
         Task<List<Claim>> GetByInsuredIdAsync(int insuredId);
+
+        /// <summary>
+        /// Change claim status.
+        /// </summary>
+        Task UpdateStatusAsync(int claimId, int newStatus);
     }
 }

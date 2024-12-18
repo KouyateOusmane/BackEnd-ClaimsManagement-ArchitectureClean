@@ -60,5 +60,19 @@ namespace ClaimsManagement.Infrastructure.Repositories
                 .Where(c => c.InsuredId == insuredId) // Filtre par l'ID de l'assuré
                 .ToListAsync();
         }
+
+        /// <summary>
+        /// Change claim status.
+        /// </summary>
+        public async Task UpdateStatusAsync(int claimId, int newStatus)
+        {
+            var claim = await _context.Claims.FindAsync(claimId);
+            if (claim != null)
+            {
+                claim.Status = (ClaimStatus)newStatus; // Mise à jour du statut
+                _context.Claims.Update(claim);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
