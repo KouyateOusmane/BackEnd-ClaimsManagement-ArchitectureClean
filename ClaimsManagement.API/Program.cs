@@ -16,9 +16,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Définir la chaîne de connexion directement dans le code
-var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=ClaimsDB;Trusted_Connection=True;";
-
 // Ajouter les cas d'utilisation (UseCases)
 builder.Services.AddScoped<CreateInsuredUseCase>();
 builder.Services.AddScoped<GetClaimByIdUseCase>();
@@ -27,9 +24,11 @@ builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<SubmitClaimUseCase>();
 builder.Services.AddScoped<UpdateClaimUseCase>();
 builder.Services.AddScoped<UpdateClaimStatusUseCase>();
-
 builder.Services.AddScoped<IClaimRepository, ClaimRepository>();
 builder.Services.AddScoped<IInsuredRepository, InsuredRepository>();
+
+// Définir la chaîne de connexion directement dans le code
+var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=ClaimsDB;Trusted_Connection=True;";
 
 // Ajouter le contexte de base de données
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
